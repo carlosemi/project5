@@ -282,6 +282,7 @@ class DataBST{
     // traversals of the BST
     void showBST(){
         
+        cout << "*************************************************************************************" << endl;
         cout << "Binary Search Constructed." << endl;
         cout << "InOrder Traversal: " << getInOrder() << endl;
         cout << "PreOrder Traversal: " << getPreOrder() << endl;
@@ -323,6 +324,8 @@ private:
         
 };  
 
+
+
 //This functions returns the address if a particular node value is found
 void checkForValue(DataBST dBST, int value){
     DataBSTNode *x;
@@ -336,6 +339,21 @@ void checkForValue(DataBST dBST, int value){
     }
 }
 
+//This function will test the required functions in the project for each new case of BST
+void Testing(DataBST dBST){
+    //Testing search function
+    cout << "Testing the search function with values 17, 2, and 61" << endl;
+    checkForValue(dBST, 17); 
+    checkForValue(dBST, 2); 
+    checkForValue(dBST, 61); 
+
+    //Checking the height of tree
+    int height;
+
+    height = dBST.getHeight();
+    cout << "The height of the tree is: " << height << endl;
+}
+
 // The main function below provides some sample testing code.
 int main(){
 
@@ -343,6 +361,9 @@ int main(){
     vector<int> vals{3, 5, 9, 1, -5, 0, 7, 2,-2,8, 12, 13, -9, 67, 89};
     DataBST dBST(vals);
     dBST.showBST();
+
+    //Test the BST
+    Testing(dBST);
 
     // create a BST with random values.
     vals.clear();
@@ -352,11 +373,20 @@ int main(){
     dBST.buildFromArray(vals);
     dBST.showBST();
 
+    //Test the BST
+    Testing(dBST);
 
-    //Testing search function
-    checkForValue(dBST, 17); //This value is in the BST so it should return an address
-    checkForValue(dBST, 2); //2 IS NOT in the BST
-    checkForValue(dBST, 61); //61 IS in the BST
+    // create a new BST with new and more pseudo random values.
+    vals.clear();
+    vals.resize(100);
+    for(int i=0; i<vals.size(); i++)
+        vals[i] = 3*i+1;
+    dBST.buildFromArray(vals);
+    dBST.showBST();
+
+    //Test the BST
+    Testing(dBST);
+    
     
     return 0;
 }
