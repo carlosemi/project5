@@ -136,11 +136,6 @@ class DataBSTNode{
             
             return;
         }
-
-        //This function returns the value of a single node. It's pointer address is passed as a parameter
-        int value(int* addrs){
-
-        }
 };
 
 class DataBST{
@@ -252,7 +247,46 @@ class DataBST{
         void insert(int aVal) {
             insert(new DataBSTNode(aVal));
         }
-        
+
+        int Predecessor(int theVal){
+
+            DataBSTNode *p = mRoot;
+            bool end = false;
+
+            while(!end){
+                cout << "p-val: " << p->val << " == " << theVal << endl;
+                int z = p->val;
+                if (z == theVal){
+                    //p = p->left;
+                    //p = p->left;
+                    cout << "1p: " << p->val << endl;
+                    if(p->left == NULL){
+                        p = p->parent;
+                        break;
+                    }
+                    else{
+                        p = p->left;                      
+                        while(p->right != NULL){
+                            p = p->right;
+                        }
+                        break;
+                    }
+                    //return p->val;
+                }
+                if(z >= theVal){
+                    p = p->left;
+                    cout << "left move p: " << p->val << endl;
+                }
+                else{
+                    p = p->right;
+                    cout << "right move p: " << p->val << endl;
+                }
+
+            }
+
+            return p->val;
+        }
+
     // This function returns a text-based display of the BST. 
     // This function does not seem to work well for BSTs of 
     // heights more than 5.    
@@ -290,6 +324,8 @@ class DataBST{
         for(int i=0; i<dBSTStrings.size(); i++)
         cout << dBSTStrings[i] << endl;        
     }
+
+    
 
 
         
@@ -339,8 +375,26 @@ void checkForValue(DataBST dBST, int value){
     }
 }
 
+//This function will test the insert() function
+DataBST checkInsert(DataBST dBST, int x ){
+    //The variable value will be the one inserted into each tree so the trees will end up with 3 new values
+    //Which will be outputed
+
+    DataBSTNode *value = new DataBSTNode(x); //create new node with value 'x'
+
+    dBST.insert(value);
+
+    return dBST;
+    //cout << "New BST tested with function insert(DataBSTNode*), list: " << dBST.getInOrder() << endl;
+
+}
+
 //This function will test the required functions in the project for each new case of BST
-void Testing(DataBST dBST){
+DataBST Testing(DataBST dBST){
+
+    // dBST.Predecessor(7);
+    //dBST.Successor(7);
+
     //Testing search function
     cout << "Testing the search function with values 17, 2, and 61" << endl;
     checkForValue(dBST, 17); 
@@ -352,19 +406,35 @@ void Testing(DataBST dBST){
 
     height = dBST.getHeight();
     cout << "The height of the tree is: " << height << endl;
+
+    //Testing inserting functions
+    dBST = checkInsert(dBST, 3);
+    return dBST;
+
+    //cout << "New BST tested with function insert(DataBSTNode*), list: " << dBST.getInOrder() << endl;    
+    
 }
 
 // The main function below provides some sample testing code.
 int main(){
 
+    //3 Different vector lists are created and each one is tested using the Testing(dBST) function
+
+    //Vector 1
     // create a BST using an integer array
     vector<int> vals{3, 5, 9, 1, -5, 0, 7, 2,-2,8, 12, 13, -9, 67, 89};
     DataBST dBST(vals);
     dBST.showBST();
 
-    //Test the BST
-    Testing(dBST);
+    //DataBSTNode *y = new DataBSTNode(12);
+    int x = dBST.Predecessor(12);
 
+    cout << "x " << x << endl;
+    //Test the BST
+    dBST = Testing(dBST);
+
+   
+    //Vector 2
     // create a BST with random values.
     vals.clear();
     vals.resize(50);
@@ -373,9 +443,19 @@ int main(){
     dBST.buildFromArray(vals);
     dBST.showBST();
 
+    x = dBST.Predecessor(3);
+    cout << "x " << x << endl;
     //Test the BST
-    Testing(dBST);
+    dBST = Testing(dBST);
+    //dBST.showBST();
+    
+    //y = new DataBSTNode(2);
+    
+    // dBST.insert(4);
+    
+    // cout << "New BST tested with function insert(DataBSTNode*), list: " << dBST.getInOrder() << endl;
 
+    //Vector 3
     // create a new BST with new and more pseudo random values.
     vals.clear();
     vals.resize(100);
@@ -384,10 +464,11 @@ int main(){
     dBST.buildFromArray(vals);
     dBST.showBST();
 
+    x = dBST.Predecessor(241);
+    cout << "x " << x << endl;
     //Test the BST
     Testing(dBST);
-    
-    
+
     return 0;
 }
 
