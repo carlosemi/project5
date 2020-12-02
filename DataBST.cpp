@@ -254,39 +254,44 @@ class DataBST{
             DataBSTNode *p = mRoot;
             bool end = false;
 
+            //This loops searches for the node, after it finds it
             while(!end){
-                cout << "p-val: " << p->val << " == " << theVal << endl;
+                
                 int z = p->val;
-                if (z == theVal){
-                    //p = p->left;
-                    //p = p->left;
-                    cout << "1p: " << p->val << endl;
-                    if(p->left == NULL){
+
+                
+                if (z == theVal){   //We found the node
+                
+                    if(p->left == NULL){    //If the node to the left is empty then the parent is the predecessor
                         p = p->parent;
                         break;
                     }
-                    else{
+                    else{   //If the can move to the left it does, then tries moving as far right as possible if there are nodes to the right
                         p = p->left;                      
                         while(p->right != NULL){
                             p = p->right;
                         }
                         break;
                     }
-                    //return p->val;
+                    
                 }
-                if(z >= theVal){
+
+                if(z >= theVal){    //If the current node value is greater than the node value we looking for, move left
                     p = p->left;
-                    cout << "left move p: " << p->val << endl;
+                    
                 }
-                else{
+                else{   //Else move right
                     p = p->right;
-                    cout << "right move p: " << p->val << endl;
                 }
 
             }
 
             return p->val;
         }
+
+
+    
+
 
     // This function returns a text-based display of the BST. 
     // This function does not seem to work well for BSTs of 
@@ -325,11 +330,8 @@ class DataBST{
         for(int i=0; i<dBSTStrings.size(); i++)
         cout << dBSTStrings[i] << endl;        
     }
-
     
 
-
-        
 private:
 
     // Pointer defined that points to the root node of the BST.
@@ -386,15 +388,11 @@ DataBST checkInsert(DataBST dBST, int x ){
     dBST.insert(value);
 
     return dBST;
-    //cout << "New BST tested with function insert(DataBSTNode*), list: " << dBST.getInOrder() << endl;
 
 }
 
 //This function will test the required functions in the project for each new case of BST
 DataBST Testing(DataBST dBST){
-
-    // dBST.Predecessor(7);
-    //dBST.Successor(7);
 
     //Testing search function
     cout << "Testing the search function with values 17, 2, and 61" << endl;
@@ -412,8 +410,7 @@ DataBST Testing(DataBST dBST){
     dBST = checkInsert(dBST, 3);
     return dBST;
 
-    //cout << "New BST tested with function insert(DataBSTNode*), list: " << dBST.getInOrder() << endl;    
-    
+   
 }
 
 // The main function below provides some sample testing code.
@@ -427,14 +424,13 @@ int main(){
     DataBST dBST(vals);
     dBST.showBST();
 
-    //DataBSTNode *y = new DataBSTNode(12);
-    int x = dBST.Predecessor(12);
-
-    cout << "x " << x << endl;
     //Test the BST
-    dBST = Testing(dBST);
+    int x = dBST.Predecessor(12); //Tests the predecessor function
+    cout << "Predecessor of 12: " << x << endl;   
+    dBST = Testing(dBST); //Tests the rest of the functions
+    string z = dBST.getInOrder(); //Display again after adding the values with the Insert function
+    cout << "New list with value 3 added: " << z << endl;
 
-   
     //Vector 2
     // create a BST with random values.
     vals.clear();
@@ -444,17 +440,12 @@ int main(){
     dBST.buildFromArray(vals);
     dBST.showBST();
 
-    x = dBST.Predecessor(3);
-    cout << "x " << x << endl;
     //Test the BST
-    dBST = Testing(dBST);
-    //dBST.showBST();
-    
-    //y = new DataBSTNode(2);
-    
-    // dBST.insert(4);
-    
-    // cout << "New BST tested with function insert(DataBSTNode*), list: " << dBST.getInOrder() << endl;
+    x = dBST.Predecessor(3); //Tests the predecessor function
+    cout << "Predecessor of 3: " << x << endl;
+    dBST = Testing(dBST); //Tests the rest of the functions
+    z = dBST.getInOrder(); //Display again after adding the values with the Insert function
+    cout << "New list with value 3 added: " << z << endl;
 
     //Vector 3
     // create a new BST with new and more pseudo random values.
@@ -465,10 +456,12 @@ int main(){
     dBST.buildFromArray(vals);
     dBST.showBST();
 
-    x = dBST.Predecessor(241);
-    cout << "x " << x << endl;
     //Test the BST
-    Testing(dBST);
+    x = dBST.Predecessor(241); //Tests the predecessor function
+    cout << "Predecessor of 241: " << x << endl; 
+    Testing(dBST);//Tests the rest of the functions
+    z = dBST.getInOrder(); //Display again after adding the values with the Insert function
+    cout << "New list with value 3 added: " << z << endl;
 
     return 0;
 }
