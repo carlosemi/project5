@@ -248,6 +248,7 @@ class DataBST{
             insert(new DataBSTNode(aVal));
         }
 
+        //This function returns the predecessor of a given node if found in the BST
         int Predecessor(int theVal){
 
             DataBSTNode *p = mRoot;
